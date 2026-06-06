@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { GoogleLogin } from '@react-oauth/google'
 import { useAuth } from '../context/AuthContext'
 import { Alert } from '../components/ui'
 
 export default function Login() {
-  const { login } = useAuth()
+  const { login, googleLogin } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -25,6 +26,23 @@ export default function Login() {
     } finally {
       setLoading(false)
     }
+  }
+
+  async function handleGoogleSuccess(credentialResponse) {
+    setError('')
+    setLoading(true)
+    try {
+      await googleLogin(credentialResponse.credential)
+      navigate(location.state?.from || '/dashboard', { replace: true })
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Google Login failed.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  function handleGoogleError() {
+    setError('Google authentication failed.')
   }
 
   return (
@@ -49,7 +67,22 @@ export default function Login() {
 
           <Alert type="error">{error}</Alert>
 
+          {/* Google Login Button */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20, width: '100%' }}>
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+              text="signin_with"
+              shape="rectangular"
+              theme="outline"
+              size="large"
+              width="348"
+            />
+          </div>
 
+          <div className="center soft" style={{ margin: '18px 0', fontSize: '0.85rem' }}>
+            — Yoki Email orqali —
+          </div>
 
           <form onSubmit={handleSubmit}>
             <div className="field">
