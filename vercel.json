@@ -1,0 +1,3 @@
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/WOMENRISE-FRONT-main/dist/index.html" }]
+}
