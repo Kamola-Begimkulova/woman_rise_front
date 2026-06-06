@@ -8,8 +8,8 @@ export default function Login() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const [email, setEmail] = useState('demo@womenrise.org')
-  const [password, setPassword] = useState('demo1234')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -49,11 +49,7 @@ export default function Login() {
 
           <Alert type="error">{error}</Alert>
 
-          {/* Demo hint */}
-          <div className="alert alert-success" style={{ fontSize: '0.85rem', marginBottom: 20 }}>
-            <strong>Demo credentials pre-filled:</strong><br />
-            demo@womenrise.org / demo1234
-          </div>
+
 
           <form onSubmit={handleSubmit}>
             <div className="field">
