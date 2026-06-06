@@ -31,10 +31,10 @@ const FEATURES = [
 ]
 
 const DEFAULT_STATS = {
-  women_served: 10000,
-  businesses_launched: 500,
-  economic_impact: 5000000,
-  courses_count: 8,
+  women_served: 0,
+  businesses_launched: 0,
+  economic_impact: 0,
+  courses_count: 0,
 }
 
 function compact(n) {
